@@ -1,19 +1,20 @@
-import Navbar from "./components/ui/Navbar";
-import About from "./components/ui/About";
-import Skills from "./components/ui/Skills";
-import Projects from "./components/ui/Projects";
-import Contact from "./components/ui/Contact";
+import { About } from "./components/ui/About";
+import { Contact } from "./components/ui/Contact";
+import { Navbar } from "./components/ui/Navbar";
+import { Projects } from "./components/ui/Projects";
+import { Skills } from "./components/ui/Skills";
 
-function App() {
+
+export default function Portfolio() {
   return (
-    <div>
+    <div className="min-h-screen bg-background">
       <Navbar />
-      <About />
-      <Skills />
-      <Projects />
-      <Contact />
+      <main>
+        <About />
+        <Skills />
+        <Projects />
+        <Contact />
+      </main>
     </div>
-  );
+  )
 }
-
-export default App;

@@ -1,35 +1,35 @@
-// src/components/About.jsx
+import { Card } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
 
-
-const About = () => {
+export function About() {
   return (
-    <section id="about" className="flex items-center justify-center py-20 px-4">
-      <div className="container mx-auto max-w-4xl">
-        <div className="flex flex-col md:flex-row items-center gap-10">
-          <div className="w-full md:w-1/3 flex justify-center">
-            <div className="w-64 h-64 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full overflow-hidden shadow-xl">
-              <div className="w-full h-full flex items-center justify-center text-white text-4xl font-bold">
-               AG
-              </div>
-            </div>
+    <section id="about" className="min-h-screen flex items-center justify-center px-6 py-20">
+      <div className="max-w-4xl mx-auto text-center">
+        <div className="mb-8">
+          <div className="w-32 h-32 mx-auto mb-6 rounded-full bg-gradient-to-br from-primary to-primary/60 flex items-center justify-center text-4xl font-bold text-primary-foreground">
+            AG
           </div>
-          <div className="w-full md:w-2/3 text-center md:text-left">
-            <h2 className="text-4xl font-bold mb-4">Ahmed G3far Kamal</h2>
-            <h3 className="text-xl text-muted-foreground mb-6">Frontend Developer & UI Designer</h3>
-            <p className="text-lg mb-6">
-              I'm a passionate frontend developer with over 5 years of experience creating beautiful,
-              functional, and user-centered digital experiences. I am dedicated to crafting interfaces
-              that are both visually appealing and highly usable.
-            </p>
-            <p className="text-lg">
-              When I'm not coding, you can find me hiking, reading UX books, or experimenting with
-              new design tools and frameworks.
-            </p>
-          </div>
+          <h1 className="text-4xl md:text-6xl font-bold mb-4 text-balance">Ahmed G3far Kamal</h1>
+          <p className="text-xl md:text-2xl text-foreground/70 mb-6">Full Stack Developer</p>
+        </div>
+
+        <Card className="p-8 mb-8 bg-card border-border">
+          <p className="text-lg leading-relaxed text-pretty">
+            Passionate full stack developer with 3+ years of experience building modern web applications. I specialize
+            in React, Node.js, and cloud technologies, creating scalable solutions that deliver exceptional user
+            experiences. Always eager to learn new technologies and tackle challenging problems.
+          </p>
+        </Card>
+
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <Button size="lg" className="bg-primary hover:bg-primary/90">
+            <a href="#contact">Get In Touch</a>
+          </Button>
+          <Button variant="outline" size="lg" className="border-border hover:bg-accent/10 bg-transparent">
+            <a href="#projects">View My Work</a>
+          </Button>
         </div>
       </div>
     </section>
-  );
-};
-
-export default About;
+  )
+}

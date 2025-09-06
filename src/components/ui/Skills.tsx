@@ -1,41 +1,39 @@
-// src/components/Skills.jsx
-import React from 'react';
+import { Card } from "@/components/ui/card"
 
-const Skills = () => {
-  const skills = [
-    { name: 'React', level: 90, color: 'bg-blue-500' },
-    { name: 'JavaScript', level: 85, color: 'bg-yellow-500' },
-    { name: 'Tailwind CSS', level: 95, color: 'bg-cyan-500' },
-    { name: 'Node.js', level: 75, color: 'bg-green-500' },
-    { name: 'UI/UX Design', level: 80, color: 'bg-purple-500' },
-    { name: 'TypeScript', level: 70, color: 'bg-blue-600' },
-  ];
+const skills = [
+  { name: "React", level: 90 },
+  { name: "TypeScript", level: 85 },
+  { name: "Node.js", level: 80 },
+  { name: "Next.js", level: 88 },
+  { name: "Python", level: 75 },
+  { name: "PostgreSQL", level: 70 },
+  { name: "AWS", level: 65 },
+  { name: "Docker", level: 72 },
+]
 
+export function Skills() {
   return (
-    <section id="skills" className="flex items-center justify-center py-20 px-4 bg-muted">
-      <div className="container mx-auto max-w-4xl">
-        <h2 className="text-4xl font-bold text-center mb-16">Skills</h2>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {skills.map((skill, index) => (
-            <div key={index} className="bg-background p-6 rounded-lg shadow-md">
-              <div className="flex justify-between items-center mb-2">
-                <h3 className="text-xl font-semibold">{skill.name}</h3>
-                <span className="text-muted-foreground">{skill.level}%</span>
+    <section id="skills" className="py-20 px-6">
+      <div className="max-w-4xl mx-auto">
+        <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-balance">Skills & Technologies</h2>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {skills.map((skill) => (
+            <Card key={skill.name} className="p-6 bg-card border-border hover:border-primary/50 transition-colors">
+              <div className="flex justify-between items-center mb-3">
+                <h3 className="text-lg font-semibold">{skill.name}</h3>
+                <span className="text-sm text-foreground/60">{skill.level}%</span>
               </div>
-              <div className="w-full bg-secondary h-3 rounded-full overflow-hidden">
-                <div 
-                  className={`h-full ${skill.color} transition-all duration-1000 ease-out`}
+              <div className="w-full bg-border rounded-full h-2">
+                <div
+                  className="bg-primary h-2 rounded-full transition-all duration-1000 ease-out"
                   style={{ width: `${skill.level}%` }}
-                ></div>
+                />
               </div>
-            </div>
+            </Card>
           ))}
         </div>
       </div>
     </section>
-  );
-};
-
-
-export default Skills;
+  )
+}

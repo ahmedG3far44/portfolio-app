@@ -1,77 +1,59 @@
-import  { useState, useEffect } from 'react';
-const Navbar = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+import { useState, useEffect } from "react"
+import { cn } from "@/lib/utils"
+
+const navItems = [
+  { name: "About", href: "#about" },
+  { name: "Skills", href: "#skills" },
+  { name: "Projects", href: "#projects" },
+  { name: "Contact", href: "#contact" },
+]
+
+export function Navbar() {
+  const [activeSection, setActiveSection] = useState("about")
+
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+      const sections = navItems.map((item) => item.href.slice(1))
+      const scrollPosition = window.scrollY + 100
 
-  const scrollToSection = () => {
-    setMobileMenuOpen(false);
-  };
+      for (const section of sections) {
+        const element = document.getElementById(section)
+        if (element) {
+          const { offsetTop, offsetHeight } = element
+          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
+            setActiveSection(section)
+            break
+          }
+        }
+      }
+    }
 
-  const navItems = [
-    { name: 'About', id: 'about' },
-    { name: 'Skills', id: 'skills' },
-    { name: 'Projects', id: 'projects' },
-    { name: 'Contact', id: 'contact' },
-  ];
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
 
   return (
-    <nav
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-background/80 backdrop-blur-md shadow-sm' : 'bg-transparent'
-      }`}
-    >
-      <div className="container mx-auto px-4 py-3 flex justify-between items-center">
-        <div className="text-xl font-bold">Portfolio</div>
-        
-        {/* Desktop Navigation */}
-        <div className="hidden md:flex space-x-8">
-          {navItems.map((item) => (
-            <button
-              key={item.id}
-              onClick={() => scrollToSection()}
-              className="text-foreground/70 hover:text-foreground transition-colors"
-            >
-              {item.name}
-            </button>
-          ))}
-        </div>
-        
-        {/* Mobile Menu Button */}
-        <button
-          className="md:hidden"
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-        >
-          <div className="w-6 h-6 flex flex-col justify-center space-y-1">
-            <span className={`block h-0.5 w-6 bg-current transform transition duration-300 ${mobileMenuOpen ? 'rotate-45 translate-y-1.5' : ''}`}></span>
-            <span className={`block h-0.5 w-6 bg-current transition duration-300 ${mobileMenuOpen ? 'opacity-0' : 'opacity-100'}`}></span>
-            <span className={`block h-0.5 w-6 bg-current transform transition duration-300 ${mobileMenuOpen ? '-rotate-45 -translate-y-1.5' : ''}`}></span>
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
+      <div className="max-w-6xl mx-auto px-6 py-4">
+        <div className="flex items-center justify-between">
+          <div className="text-xl font-bold text-primary">Portfolio</div>
+          <div className="hidden md:flex space-x-8">
+            {navItems.map((item) => (
+              <a
+                key={item.name}
+                href={item.href}
+                className={cn(
+                  "text-sm font-medium transition-colors hover:text-primary",
+                  activeSection === item.href.slice(1) ? "text-primary" : "text-foreground/70",
+                )}
+              >
+                {item.name}
+              </a>
+            ))}
           </div>
-        </button>
-      </div>
-      
-      {/* Mobile Menu */}
-      <div className={`md:hidden bg-background transition-all duration-300 ${mobileMenuOpen ? 'max-h-64 opacity-100' : 'max-h-0 opacity-0 overflow-hidden'}`}>
-        <div className="container mx-auto px-4 py-3 flex flex-col space-y-4">
-          {navItems.map((item) => (
-            <button
-              key={item.id}
-            //   onClick={() => scrollToSection(item.id)}
-              className="text-left py-2 text-foreground/70 hover:text-foreground transition-colors"
-            >
-              {item.name}
-            </button>
-          ))}
         </div>
       </div>
     </nav>
-  );
-};
-
-export default Navbar;
+  )
+}
